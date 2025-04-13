@@ -1,0 +1,22 @@
+{
+  "name": "playwright-basics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kentzieee/playwright-basics.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kentzieee/playwright-basics/issues"
+  },
+  "homepage": "https://github.com/Kentzieee/playwright-basics#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.1"
+  }
+}
