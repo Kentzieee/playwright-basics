@@ -1,15 +1,22 @@
 import { test, expect } from '@playwright/test';
 
+// Login using valid username and password
 test('Should successfully login with valid username and password', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
   await page.locator('[data-test="username"]').fill('standard_user');
   await page.locator('[data-test="password"]').fill('secret_sauce');
   await page.locator('[data-test="login-button"]').click();
   await expect(page.locator('[data-test="item-4-title-link"] [data-test="inventory-item-name"]')).toContainText('Sauce Labs Backpack');
-  await page.screenshot({path: 'test-screenshots/login-success.png', fullPage: true
-  })
+  await page.screenshot({path: 'test-screenshots/login-success.png', fullPage: true})
+
+  // Logout
+  await page.getByRole('button', { name: 'Open Menu' }).click();
+  await page.getByRole('link', { name: 'Logout' }).click();
+  await expect(page.getByText('Swag Labs')).toBeVisible();
+  await page.screenshot({path: 'test-screenshots/logout-success.png', fullPage: true})
 });
 
+  // Login using invalid username and password
 test('Should successfully login with invalid username and password', async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
     await page.locator('[data-test="username"]').fill('invalid_user');
