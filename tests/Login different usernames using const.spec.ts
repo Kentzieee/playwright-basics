@@ -12,7 +12,7 @@ test.describe('Login with different usernames but same password', () => {
             await page.locator('[data-test="login-button"]').click();
             await expect(page.locator('[data-test="item-4-title-link"] [data-test="inventory-item-name"]')).toContainText('Sauce Labs Backpack');
 
-        });
+        }); xx
     }
 
 });
