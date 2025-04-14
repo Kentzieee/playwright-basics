@@ -16,8 +16,6 @@ test('Login using standard_user', async ({ page }) => {
   await expect(page.getByText('Swag Labs')).toBeVisible();
   await page.screenshot({path: 'test-screenshots/logout-success.png', fullPage: true})
 });
-
-
 // Negative Scenarios
 // Login using locked_out_user
 test('Login using locked_out_username', async ({ page }) => {
