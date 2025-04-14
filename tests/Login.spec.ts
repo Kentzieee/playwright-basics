@@ -25,7 +25,7 @@ test('Login using locked_out_username', async ({ page }) => {
     await expect(page.locator('[data-test="item-4-title-link"] [data-test="inventory-item-name"]')).toContainText('Sauce Labs Backpack');
     await page.screenshot({path: 'test-screenshots/login-success-locked_out_user.png', fullPage: true})
 
-     // Logout
+// Logout
   await page.getByRole('button', { name: 'Open Menu' }).click();
   await page.getByRole('link', { name: 'Logout' }).click();
   await expect(page.getByText('Swag Labs')).toBeVisible();
