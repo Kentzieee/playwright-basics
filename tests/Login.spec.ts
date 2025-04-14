@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 
+// Positive Scenarios
 // Login using standard_user
 test('Login using standard_user', async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
@@ -16,6 +17,8 @@ test('Login using standard_user', async ({ page }) => {
   await page.screenshot({path: 'test-screenshots/logout-success.png', fullPage: true})
 });
 
+
+// Negative Scenarios
 // Login using locked_out_user
 test('Login using locked_out_username', async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
@@ -24,9 +27,7 @@ test('Login using locked_out_username', async ({ page }) => {
     await page.locator('[data-test="login-button"]').click();
     await expect(page.getByText('Epic sadface: Sorry, this user has been locked out.')).toBeVisible()
     await page.screenshot({path: 'test-screenshots/login-success-locked_out_user.png', fullPage: true})
-
 });
-
   // Login using invalid username and password
 test('Login using invalid username and password', async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
