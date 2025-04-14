@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "login-test": "npx playwright test login.spec.ts --project chromium --ui --trace on --headed",
-    "git:update":"git add . && git commit -m \"Update changes\" && git push origin main"
+    "git:update": "git add . && git commit -m \"Update changes\" && git push origin main"
   },
   "repository": {
     "type": "git",
