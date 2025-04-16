@@ -60,6 +60,7 @@ const chkoutqty = page.locator('.cart_quantity', {hasText: '1'});
 await expect(page.locator('[data-test="subtotal-label"]')).toContainText("$29.99");
 await expect(page.locator('[data-test="tax-label"]')).toContainText("$2.40");
 
+// Validate Checkout Complete Page
 await page.locator('[data-test="finish"]').click();
 await expect(page.locator('[data-test="secondary-header"]')).toBeVisible();
 const msg = page.locator('.checkout_complete_container', {hasText: "Thank you for your order!"});
