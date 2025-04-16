@@ -28,7 +28,7 @@ const button1 = page.locator('button', {hasText: 'Add to cart'}).first().click()
 // Validate - Cart badge appears and equals "1"
 await expect (cart).toHaveText("1");
 
-// Go to the cart page
+// Go to the Cart Page
 await page.locator('[data-test="shopping-cart-link"]').click();
 
 // Validate Item appears in cart with correct name
@@ -37,4 +37,30 @@ const cart_item = page.locator('.inventory_item_name', {hasText: 'Sauce Labs Bac
 // Validate Correct quantity
 const qty = page.locator('.cart_quantity', {hasText: '1'});
 
+// Click Checkout Button
+await page.locator('[data-test="checkout"]').click();
+
+// Validate placeholders if visible
+await expect(page.getByPlaceholder('First Name')).toBeVisible();
+await expect(page.getByPlaceholder('Last Name')).toBeVisible();
+await expect(page.getByPlaceholder('Zip/Postal Code')).toBeVisible();
+
+// Fill-out form
+await page.locator('[data-test="firstName"]').fill('Kentzie');
+await page.locator('[data-test="lastName"]').fill('Lim');
+await page.locator('[data-test="postalCode"]').fill('1421');
+
+// Click Continue
+await page.locator('[data-test="continue"]').click();
+
+// Validate Item in Cart
+await expect(page.locator('.header_secondary_container')).toHaveText('Checkout: Overview');
+await expect(page.locator('.cart_item')).toContainText('Sauce Labs Backpack');
+const chkoutqty = page.locator('.cart_quantity', {hasText: '1'});
+await expect(page.locator('[data-test="subtotal-label"]')).toContainText("$29.99");
+await expect(page.locator('[data-test="tax-label"]')).toContainText("$2.40");
+
+await page.locator('[data-test="finish"]').click();
+await expect(page.locator('[data-test="secondary-header"]')).toBeVisible();
+const msg = page.locator('.checkout_complete_container', {hasText: "Thank you for your order!"});
 });
