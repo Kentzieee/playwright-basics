@@ -65,5 +65,6 @@ await del.click();
 // Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
 expect(page.locator('[account-deleted="ACCOUNT DELETED!"]'));
 expect(page.locator('[data-qa="continue-button"]')).toBeVisible();
+await page.locator('[data-qa="continue-button"]').click();
 
 });
