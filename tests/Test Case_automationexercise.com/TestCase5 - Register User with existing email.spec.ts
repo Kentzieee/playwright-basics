@@ -17,6 +17,7 @@ expect(page.getByText("New User Signup!")).toBeVisible();
 // Enter name and already registered email address -- Testing2@gmail.com
 await page.locator('[data-qa="signup-name"]').fill('Testing2');
 await page.locator('[data-qa="signup-email"]').fill('Testing2@gmail.com');
+await expect(page.locator('input[name="name"]')).toHaveValue('Testing2');
 
 // Click 'Signup' button
 await page.locator('[data-qa="signup-button"]').click();
