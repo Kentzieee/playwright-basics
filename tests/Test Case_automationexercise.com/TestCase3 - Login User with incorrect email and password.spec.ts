@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'; 
 
-test('TestCase3 - Login User with incorrect email and password', async ({ page }) => {
+test('Login User with incorrect email and password', async ({ page }) => {
 
 // Navigate to url 'http://automationexercise.com'
 await page.goto('https://automationexercise.com/');
