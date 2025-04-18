@@ -12,7 +12,7 @@ expect(page.getByRole('link',{name: "Home"}));
 await page.getByRole('link', {name: "Signup / Login"}).click();
 
 // Verify 'Login to your account' is visible
-expect(page.getByText("Login to your account")).toBeVisible();
+expect(page.getByText('Login to your account')).toBeVisible();
 
 // Enter correct email address and password
 await page.locator('[data-qa="login-email"]').fill('Testing2@gmail.com');
