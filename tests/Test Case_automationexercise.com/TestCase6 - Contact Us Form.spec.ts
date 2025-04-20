@@ -25,7 +25,7 @@ const fileInput = page.locator('.form-control[name="upload_file"]');
 await fileInput.setInputFiles('tests/Files/login-success-standard_user.png');
 
 
-// Handles pop-up - Should be first before triggering the pop-up
+// Handles pop-up - Should be stated first before triggering the pop-up
 page.once('dialog', async dialog => {
     console.log('Popup says:', dialog.message()); // 👈 See message in terminal
     await dialog.accept(); // Press OK
