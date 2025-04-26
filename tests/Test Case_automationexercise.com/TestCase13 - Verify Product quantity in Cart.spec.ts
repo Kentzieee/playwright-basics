@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Add Products in Cart', async ({ page }) => {
+test('Verify Product quantity in Cart', async ({ page }) => {
   // Navigate to url 'http://automationexercise.com'
   await page.goto('http://automationexercise.com');
 
