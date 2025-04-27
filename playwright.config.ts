@@ -22,8 +22,23 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  reporter: [
+    ['playwright-html', {
+        testFolder: 'tests',
+        title: 'Playwright Test Report',
+        project: 'Playwright Mastery Class',
+        release: '1.0.0',
+        testEnvironment: 'Labs Preview',
+        embeddedAssets: true,
+        embeddedAttachments: true,
+        outputFolder: 'playwright-report',
+        minifyAssets: true,
+        startServer: true,
+        open: 'always'
+      }
+    ]
+  ],
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',

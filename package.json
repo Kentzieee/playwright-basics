@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "login-test": "npx playwright test SauceDemo - TestCase1 - Registration.spec.ts --project chromium --ui --trace on --headed --debug",
-    "git:update": "git add . && git commit -m \"Update changes\" && git push origin main"
+    "git:update": "git add . && git commit -m \"Update changes\" && git push origin main",
+    "serve-report": "node \"C:\\Users\\Kentzie Lim\\Desktop\\Playwright Training\\playwright-basics\\node_modules\\playwright-html\\lib\\server.mjs\" 8000 playwright-report index.html"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,9 @@
   "devDependencies": {
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.14.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "playwright-html": "^1.2.5"
   }
 }
