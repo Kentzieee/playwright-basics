@@ -1,59 +1,29 @@
 import { test, expect } from '@playwright/test';
 
-test('Verify Product quantity in Cart', async ({ page }) => {
+test('Register before Checkout', async ({ page }) => {
+
   // Navigate to url 'http://automationexercise.com'
   await page.goto('http://automationexercise.com');
 
   // Verify that home page is visible successfully
-  expect(page.locator('a[href="/"]'));
+  await expect(page).toHaveURL('https://automationexercise.com');
 
-  // Add products to cart
-  await expect(page.locator('.features_items')).toBeVisible();
-  await page.hover('.product-image-wrapper >> nth=0'); // hover on first product
-  await page.locator('.product-overlay .overlay-content a[data-product-id="1"]').waitFor({ state: 'visible' }); // To wait for the hidden overlay to display
-  await page.locator('.product-overlay .overlay-content a[data-product-id="1"]').click();
-
-  // Click 'Continue Shopping' button
-  await expect(page.locator('.modal-content')).toBeVisible();
-  await page.locator('.btn.btn-success.close-modal.btn-block').click();
-  
-  // Hover over second product and click 'Add to cart'
-  await page.hover('.product-image-wrapper >> nth=1'); // hover on second product
-  await page.locator('.product-overlay .overlay-content a[data-product-id="2"]').waitFor({ state: 'visible' }); // To wait for the hidden overlay to display
-  await page.locator('.product-overlay .overlay-content a[data-product-id="2"]').click();
-
-  // Click 'View Cart' button
-  await page.locator('a[href="/view_cart"]').first().click();
-
-  // Verify that cart page is displayed
-  await expect(page.locator('.cart_menu')).toBeVisible();
-
-  // Click Proceed To Checkout
-  await page.locator('text=Proceed To Checkout').click();
-
-  // Click 'Register / Login' button
-  await page.locator('text=Register / Login').nth(1).click();
+  // Click 'Signup / Login' button
+  await (page.locator('a:has(.fa.fa-lock)', { hasText: ' Signup / Login'})).click();
 
   // Fill all details in Signup and create account
-  await page.locator('[data-qa="signup-name"]').fill('Testcase20');
-  await page.locator('[data-qa="signup-email"]').fill('TC20@gmail.com');
-  await page.locator('[data-qa="signup-button"]').click(); 
-
-  // Verify that 'ENTER ACCOUNT INFORMATION' is visible
+  const username = 'Test17';
+  await page.fill('[data-qa="signup-name"]', username);
+  await (page.locator('[data-qa="signup-email"]')).fill('Test17@gmail.com');
+  await (page.locator('[data-qa="signup-button"]')).click();
   expect(page.getByText('Enter Account Information'));
-  
-  // Fill details: Title, Name, Email, Password, Date of birth
   await page.locator('#id_gender2').click();
   await page.locator('#password').fill('testautomation');
   await page.selectOption('#days', {value: '6'});
   await page.selectOption('#months', {value: '8'});
   await page.selectOption('#years', {value: '1996'});
- 
-  // Select checkbox 'Sign up for our newsletter!'
   await page.locator('#newsletter').click();
   await page.locator('#optin').click();
-  
-  //  Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
   await page.locator('#first_name').fill('Kentzie');
   await page.locator('#last_name').fill('Lim');
   await page.locator('#company').fill('Amdocs');
@@ -63,25 +33,39 @@ test('Verify Product quantity in Cart', async ({ page }) => {
   await page.locator('#city').fill('Caloocan');
   await page.locator('#zipcode').fill('1421');
   await page.locator('#mobile_number').fill('09123562154');
-  
-  // Click 'Create Account button'
   await page.locator('[data-qa="create-account"]').click();
   
-  // Verify that 'ACCOUNT CREATED!' is visible
-  expect(page.getByText('ACCOUNT CREATED!')).toBeVisible();
-
-  // Click 'Continue' button
+  // Verify 'ACCOUNT CREATED!' and click 'Continue' button
+  await expect(page.getByText('Congratulations! Your new account has been successfully created!')).toBeVisible();
   await page.locator('[data-qa="continue-button"]').click();
 
   // Verify ' Logged in as username' at top
-  const username = await page.locator('b').textContent();
-  expect(username).toBe('Testcase20');
+  await expect(page.locator('b', {hasText: username})).toBeVisible();
+
+  // Add products to cart
+  // Hover over first product and click 'Add to cart'
+  await page.hover('.product-image-wrapper >> nth=0'); // hover on first product
+  await page.locator('.product-overlay .overlay-content a[data-product-id="1"]').waitFor({ state: 'visible' }); // To wait for the hidden overlay to display
+  await page.locator('.product-overlay .overlay-content a[data-product-id="1"]').click();
+
+  // Click 'Continue Shopping' button
+  await expect(page.locator('.modal-content')).toBeVisible();
+  await page.locator('.btn.btn-success.close-modal.btn-block').click();
+
+  // Hover over second product and click 'Add to cart'
+  await page.hover('.product-image-wrapper >> nth=1'); // hover on second product
+  await page.locator('.product-overlay .overlay-content a[data-product-id="2"]').waitFor({ state: 'visible' }); // To wait for the hidden overlay to display
+  await page.locator('.product-overlay .overlay-content a[data-product-id="2"]').click();
 
   // Click 'Cart' button
-  await page.locator('.fa.fa-shopping-cart').first().click();
+  await page.locator('a[href="/view_cart"]').first().click();
 
-  // Click 'Proceed To Checkout' button
-  await page.locator('.btn.btn-default.check_out').click();
+  // Verify that cart page is displayed
+  await expect(page.getByText('Blue Top')).toBeVisible();
+  await expect(page.getByText('Men Tshirt')).toBeVisible()
+
+  // Click Proceed To Checkout
+  await (page.getByText('Proceed To Checkout')).click();
 
   // Verify Address Details and Review Your Order
   expect(page.locator('#address_delivery', {hasText: "Caloocan"}));
@@ -110,4 +94,6 @@ test('Verify Product quantity in Cart', async ({ page }) => {
 
   // Verify 'ACCOUNT DELETED!' and click 'Continue' button
   expect(page.getByText("Your account has been permanently deleted!"));
+
+
 });
